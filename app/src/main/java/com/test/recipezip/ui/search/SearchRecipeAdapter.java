@@ -14,7 +14,6 @@ import com.test.recipezip.R;
 import com.test.recipezip.databinding.SearchRecipeItemBinding;
 import com.test.recipezip.model.Hit;
 import com.test.recipezip.model.Recipe;
-import com.test.recipezip.model.RecipeResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +67,7 @@ public class SearchRecipeAdapter extends RecyclerView.Adapter<SearchRecipeAdapte
     }
 
     // 3. SearchNewsViewHolder:
-    public static class SearchNewsViewHolder extends RecyclerView.ViewHolder {
+    public class SearchNewsViewHolder extends RecyclerView.ViewHolder {
 
         ImageView favoriteImageView;
         ImageView itemImageView;
@@ -78,7 +77,9 @@ public class SearchRecipeAdapter extends RecyclerView.Adapter<SearchRecipeAdapte
             super(itemView);
             SearchRecipeItemBinding binding = SearchRecipeItemBinding.bind(itemView);
             favoriteImageView = binding.searchItemFavorite;
-            itemImageView = binding.searchItemImage;
+//            itemImageView = binding.searchItemImage;
+            itemImageView = (ImageView) itemView.findViewById(R.id.search_item_image);
+            itemImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             itemTitleTextView = binding.searchItemTitle;
         }
     }

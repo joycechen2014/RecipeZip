@@ -1,13 +1,10 @@
 package com.test.recipezip.model;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Objects;
 
 public class Recipe implements Serializable {
-     public String uri;
+    public String uri;
     public String label;
     public String image;
     public String source;
