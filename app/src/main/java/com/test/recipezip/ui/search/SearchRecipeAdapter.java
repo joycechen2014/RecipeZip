@@ -3,8 +3,13 @@ package com.test.recipezip.ui.search;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.ScaleAnimation;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,7 +60,7 @@ public class SearchRecipeAdapter extends RecyclerView.Adapter<SearchRecipeAdapte
     @Override
     public void onBindViewHolder(@NonNull SearchNewsViewHolder holder, int position) {
         Recipe recipe = recipes.get(position);
-        holder.favoriteImageView.setImageResource(R.drawable.ic_favorite_24dp);
+//        holder.favoriteImageView.setImageResource(R.drawable.ic_favorite_24dp);
         holder.itemTitleTextView.setText(recipe.label);
         Picasso.get().load(recipe.image).into(holder.itemImageView);
         holder.itemView.setOnClickListener(v -> itemCallback.onOpenDetails(recipe));
@@ -69,14 +74,26 @@ public class SearchRecipeAdapter extends RecyclerView.Adapter<SearchRecipeAdapte
     // 3. SearchNewsViewHolder:
     public class SearchNewsViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView favoriteImageView;
+        private ScaleAnimation scaleAnimation;
+        private BounceInterpolator bounceInterpolator;
+        ToggleButton toggleButton;
         ImageView itemImageView;
         TextView itemTitleTextView;
 
         public SearchNewsViewHolder(@NonNull View itemView) {
             super(itemView);
             SearchRecipeItemBinding binding = SearchRecipeItemBinding.bind(itemView);
-            favoriteImageView = binding.searchItemFavorite;
+            toggleButton = binding.searchItemFavorite;
+            scaleAnimation = new ScaleAnimation(0.7f, 1.0f, 0.7f, 1.0f, Animation.RELATIVE_TO_SELF, 0.7f, Animation.RELATIVE_TO_SELF, 0.7f);
+            scaleAnimation.setDuration(500);
+            bounceInterpolator = new BounceInterpolator();
+            scaleAnimation.setInterpolator(bounceInterpolator);
+            toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    //animation
+                    compoundButton.startAnimation(scaleAnimation);
+                }});
 //            itemImageView = binding.searchItemImage;
             itemImageView = (ImageView) itemView.findViewById(R.id.search_item_image);
             itemImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);

@@ -28,19 +28,33 @@
                 tools:src="@tools:sample/backgrounds/scenic"
                 android:adjustViewBounds="true"/>
 
-            <ImageView
+<!--            <ImageView-->
+<!--                android:id="@+id/search_item_favorite"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_margin="6dp"-->
+<!--                android:layout_marginEnd="359dp"-->
+<!--                android:layout_marginBottom="4dp"-->
+<!--                android:src="@drawable/ic_favorite_24dp"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/search_item_image"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:tint="#e46363" />-->
+
+            <ToggleButton
                 android:id="@+id/search_item_favorite"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="6dp"
                 android:layout_marginEnd="359dp"
                 android:layout_marginBottom="4dp"
-                android:src="@drawable/ic_favorite_24dp"
-                app:layout_constraintBottom_toTopOf="@+id/search_item_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="#e46363" />
+                android:background="@drawable/button_favorite"
+                android:checked="false"
+                android:text=""
+                android:textOff=""
+                android:textOn=""
+                />
 
             <TextView
                 android:id="@+id/search_item_title"
