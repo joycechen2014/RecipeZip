@@ -79,15 +79,17 @@ public class LoginActivity extends AppCompatActivity {
 //            switchToMain.putExtra("username", user);
             startActivity(switchToMain);
         }
-        else {
-            Toast.makeText(LoginActivity.this, "Wrong username or password!", Toast.LENGTH_SHORT).show();
-        }
+//        else {
+//            Toast.makeText(LoginActivity.this, "Wrong username or password!", Toast.LENGTH_SHORT).show();
+//        }
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
                         // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
+                        if (res)
+                            onLoginSuccess();
+                        else
+                            onLoginFailed();
                         progressDialog.dismiss();
                     }
                 }, 3000);
