@@ -71,12 +71,13 @@ public class LoginActivity extends AppCompatActivity {
     String password = mPasswordText.getText().toString();
 
     // TODO: Implement your own authentication logic here.
-        boolean res = db.checkUser(email, password);
+        int uid = db.checkUser(email, password);
 
-        if (res) {
+        if (uid >= 0) {
 //            Toast.makeText(LoginActivity.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
             Intent switchToMain = new Intent(LoginActivity.this, MainActivity.class);
-//            switchToMain.putExtra("username", user);
+            switchToMain.putExtra("uid", uid);
+            Log.d(TAG, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Login"+uid);
             startActivity(switchToMain);
         }
 //        else {
@@ -86,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                 new Runnable() {
                     public void run() {
                         // On complete call either onLoginSuccess or onLoginFailed
-                        if (res)
+                        if (uid >= 0)
                             onLoginSuccess();
                         else
                             onLoginFailed();

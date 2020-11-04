@@ -44,7 +44,7 @@ public class AccountHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public boolean checkUser(String email, String password) {
+    public int checkUser(String email, String password) {
         String[] columns = {COL_1};
         SQLiteDatabase db = this.getWritableDatabase();
         String selection = COL_3 + "=?" + " and " + COL_4 + "=?";
@@ -52,8 +52,13 @@ public class AccountHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null,
                 null, null);
         int count = cursor.getCount();
+        if (count <= 0) {
+            return -1;
+        }
+        cursor.moveToFirst();
+        int uid = cursor.getInt(cursor.getColumnIndex(COL_1));
         cursor.close();
         db.close();
-        return count > 0;
+        return uid;
     }
 }

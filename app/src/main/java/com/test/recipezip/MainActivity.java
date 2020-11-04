@@ -5,6 +5,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -26,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        int userId = getIntent().getIntExtra("uid", -1);
+
+        Log.d("login balala", "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Login"+userId);
 
                BottomNavigationView navView = findViewById(R.id.nav_view);
                NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
@@ -33,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
                navController = navHostFragment.getNavController();
                NavigationUI.setupWithNavController(navView, navController);
                NavigationUI.setupActionBarWithNavController(this, navController);
-
     }
 
    @Override
