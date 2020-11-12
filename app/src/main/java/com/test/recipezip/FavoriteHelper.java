@@ -24,7 +24,7 @@ public class FavoriteHelper extends SQLiteOpenHelper {
     public static final String COL_2 = "recipe";
 
     public FavoriteHelper(@Nullable Context context) {
-        super(context, DATABASE_NAME, null, 5);
+        super(context, DATABASE_NAME, null, 10);
     }
 
 

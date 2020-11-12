@@ -73,7 +73,7 @@ public class FavoriteFragment extends Fragment {
 
 
         List<Recipe> recipeList =  favoriteHelper.getAllFavorite(userId);
-        recipeList.forEach(recipe -> {recipe.favorite=true;});
+        recipeList.forEach(recipe -> {recipe.setFavorite(true);});
         Log.d("showing favorite!!!!!!!!!!!!!!", recipeList.toString());
         recipeAdapter.setRecipes(recipeList);
         recipeAdapter.setItemCallback(article -> {

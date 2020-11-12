@@ -98,7 +98,7 @@ public class SearchFragment extends Fragment {
                             if (recipeResponse != null) {
                                 Log.d("SearchFragment",recipeResponse.toString());
                                 for (int i = 0; i < recipeResponse.hits.length; i++) {
-                                    recipeResponse.hits[i].recipe.favorite = favoriteHelper.isFavorite(userId, recipeResponse.hits[i].recipe.toString());
+                                    recipeResponse.hits[i].recipe.setFavorite(favoriteHelper.isFavorite(userId, recipeResponse.hits[i].recipe.toString()));
                                 }
                                 recipeAdapter.setArticles(recipeResponse.hits);
                             }

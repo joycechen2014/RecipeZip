@@ -83,7 +83,7 @@ public class FavoriteRecipeAdapter extends RecyclerView.Adapter<FavoriteRecipeAd
         scaleAnimation.setDuration(500);
         BounceInterpolator bounceInterpolator = new BounceInterpolator();
         scaleAnimation.setInterpolator(bounceInterpolator);
-        holder.toggleButton.setChecked(recipe.favorite);
+        holder.toggleButton.setChecked(recipe.isFavorite());
         holder.toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {

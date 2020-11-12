@@ -1,5 +1,11 @@
 package com.test.recipezip.model;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -25,35 +31,45 @@ public class Recipe implements Serializable {
 
     @Override
     public String toString() {
-        return "Recipe{" +
-                "uri='" + uri + '\'' +
-                ", label='" + label + '\'' +
-                ", image='" + image + '\'' +
-                ", source='" + source + '\'' +
-                ", url='" + url + '\'' +
-                ", yield=" + yield +
-                ", calories=" + calories +
-                ", totalWeight=" + totalWeight +
-                ", ingredients=" + Arrays.toString(ingredients) +
-                '}';
+        ExclusionStrategy strategy = new ExclusionStrategy() {
+            @Override
+            public boolean shouldSkipField(FieldAttributes field) {
+                if (field.getName().equals("favorite")) {
+                    return true;
+                }
+                return false;
+            }
+            @Override
+            public boolean shouldSkipClass(Class<?> clazz) {
+                return false;
+            }
+        };
+        Gson gson = new GsonBuilder().addSerializationExclusionStrategy(strategy).create();
+        String json = gson.toJson(this);
+        return json;
     }
     public Recipe(String str) {
-        str = str.substring(1, str.length()-1);
-        String[] strings = str.split(",");
-        uri = strings[0].split("=")[1];
-        uri = uri.substring(1, uri.length()-1);
-        label = strings[1].split("=")[1];
-        label = label.substring(1, label.length()-1);
-        image = strings[2].split("=")[1];
+        Gson gson = new Gson();
 
-        image = image.substring(1, image.length()-1);
-        source = strings[3].split("=")[1];
+        Recipe recipe = gson.fromJson(str, Recipe.class);
+        this.uri = recipe.uri;
+        this.label = recipe.label;
+        this.image = recipe.image;
+        this.source = recipe.source;
+        this.url = recipe.url;
+        this.yield= recipe.yield;
+        this.calories = recipe.calories;
+        this.totalWeight = recipe.totalWeight;
+        this.ingredients = recipe.ingredients;
+    }
 
-        source = source.substring(1, source.length()-1);
-        url = strings[4].split("=")[1];
-        url = url.substring(1, url.length()-1);
-        //yield = Integer.parseInt(strings[5].split("=")[1].substring(1));
-        //calories = Float.parseFloat(strings[6].split("=")[1].substring(1));
-        //totalWeight = Float.parseFloat(strings[7].split("=")[1].substring(1));
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 }
+
+
