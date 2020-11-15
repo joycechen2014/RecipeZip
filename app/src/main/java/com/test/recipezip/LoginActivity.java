@@ -12,6 +12,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -25,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final int REQUEST_SIGNUP = 0;
     private GoogleSignInClient mGoogleSignInClient = null;
     private int RC_SIGN_IN = 0;
+    private LoginButton loginButton;
 
     EditText mEmailText;
     EditText mPasswordText;
@@ -75,6 +81,36 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
 
+        });
+
+        // facebook login
+        loginButton = findViewById(R.id.login_button);
+        CallbackManager callbackManager = CallbackManager.Factory.create();
+
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                String fbUserId = loginResult.getAccessToken().getUserId();
+                String email = fbUserId.concat("@fb.com");
+                Long uid = db.checkUserViaEmail(email);
+                if (uid < 0) {
+//            Toast.makeText(LoginActivity.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                    uid = db.addUser(fbUserId, email, "password");
+                }
+                Intent switchToMain = new Intent(LoginActivity.this, MainActivity.class);
+                switchToMain.putExtra("uid", uid);
+                startActivity(switchToMain);
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(getApplicationContext(), "facebook sign in canceled", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(getApplicationContext(), "facebook sign in canceled", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
