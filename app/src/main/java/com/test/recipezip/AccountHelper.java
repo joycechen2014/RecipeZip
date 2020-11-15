@@ -44,7 +44,7 @@ public class AccountHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public int checkUser(String email, String password) {
+    public long checkUser(String email, String password) {
         String[] columns = {COL_1};
         SQLiteDatabase db = this.getWritableDatabase();
         String selection = COL_3 + "=?" + " and " + COL_4 + "=?";
@@ -56,7 +56,25 @@ public class AccountHelper extends SQLiteOpenHelper {
             return -1;
         }
         cursor.moveToFirst();
-        int uid = cursor.getInt(cursor.getColumnIndex(COL_1));
+        long uid = cursor.getLong(cursor.getColumnIndex(COL_1));
+        cursor.close();
+        db.close();
+        return uid;
+    }
+
+    public long checkUserViaEmail(String email) {
+        String[] columns = {COL_1};
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selection = COL_3 + "=?";
+        String[] selectionArgs = {email};
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null,
+                null, null);
+        int count = cursor.getCount();
+        if (count <= 0) {
+            return -1;
+        }
+        cursor.moveToFirst();
+        long uid = cursor.getLong(cursor.getColumnIndex(COL_1));
         cursor.close();
         db.close();
         return uid;

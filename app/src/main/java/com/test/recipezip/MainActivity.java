@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.test.recipezip.model.RecipeResponse;
 import com.test.recipezip.network.RecipeApi;
@@ -25,13 +26,13 @@ public class MainActivity extends AppCompatActivity {
 //    private static final String API_KEY ="90db22d451899254bdaca3ede182a0c9";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
         int userId = getIntent().getIntExtra("uid", -1);
-
-        Log.d("login balala", "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Login"+userId);
-
                BottomNavigationView navView = findViewById(R.id.nav_view);
                NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.nav_host_fragment);
