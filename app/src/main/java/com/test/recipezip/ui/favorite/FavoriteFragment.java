@@ -33,7 +33,7 @@ import java.util.List;
 public class FavoriteFragment extends Fragment {
     private SearchViewModel viewModel;
     private FragmentFavoriteBinding binding;
-    private int userId = -1;
+    private long userId = -1;
     private FavoriteHelper favoriteHelper = null;
 
 
@@ -65,7 +65,7 @@ public class FavoriteFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Intent intent = getActivity().getIntent();
-        int userId = intent.getIntExtra("uid", -1);
+        long userId = intent.getIntExtra("uid", -1);
         FavoriteRecipeAdapter recipeAdapter = new FavoriteRecipeAdapter(userId, favoriteHelper);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 1);
         binding.newsResultsRecyclerView.setLayoutManager(gridLayoutManager);

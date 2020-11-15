@@ -31,7 +31,7 @@ public class SearchFragment extends Fragment {
 
     private SearchViewModel viewModel;
     private FragmentSearchBinding binding;
-    private int userId = -1;
+    private long userId = -1;
     private FavoriteHelper favoriteHelper = null;
 
     public SearchFragment() {
@@ -63,7 +63,7 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Intent intent = getActivity().getIntent();
-        int userId = intent.getIntExtra("uid", -1);
+        long userId = intent.getIntExtra("uid", -1);
         SearchRecipeAdapter recipeAdapter = new SearchRecipeAdapter(userId, favoriteHelper);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 1);
         binding.newsResultsRecyclerView.setLayoutManager(gridLayoutManager);

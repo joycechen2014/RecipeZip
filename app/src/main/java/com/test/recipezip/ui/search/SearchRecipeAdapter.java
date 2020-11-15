@@ -28,10 +28,10 @@ import java.util.List;
 public class SearchRecipeAdapter extends RecyclerView.Adapter<SearchRecipeAdapter.SearchNewsViewHolder> {
     // 1. Supporting data:
     private List<Recipe> recipes = new ArrayList<>();
-    private int userId = -1;
+    private long userId = -1;
     private FavoriteHelper favoriteHelper = null;
 
-    public SearchRecipeAdapter(int _uid, FavoriteHelper _helper) {
+    public SearchRecipeAdapter(long _uid, FavoriteHelper _helper) {
         this.userId = _uid;
         Log.d("user user user user", "lalalalalal2k@@@@@@@@@@@@@@@@@@@"+ userId);
         favoriteHelper = _helper;

@@ -40,7 +40,7 @@ public class FavoriteHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public boolean isFavorite(Integer user, String recipe) {
+    public boolean isFavorite(Long user, String recipe) {
         String[] columns = {COL_1, COL_2};
         SQLiteDatabase db = this.getWritableDatabase();
         String selection = COL_1 + "=?" + " and " + COL_2 + "=?";
@@ -79,7 +79,7 @@ public class FavoriteHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public boolean addFavorite(Integer user, String recipe) {
+    public boolean addFavorite(Long user, String recipe) {
        if (isFavorite(user, recipe)) {
            return false;
        }
@@ -92,7 +92,7 @@ public class FavoriteHelper extends SQLiteOpenHelper {
        return true;
     }
 
-    public boolean removeFavorite(Integer user, String recipe) {
+    public boolean removeFavorite(Long user, String recipe) {
         SQLiteDatabase db = this.getWritableDatabase();
         String selection = COL_1 + "=?" + " and " + COL_2 + "=?";
 
@@ -103,7 +103,7 @@ public class FavoriteHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public List<Recipe> getAllFavorite(Integer user) {
+    public List<Recipe> getAllFavorite(Long user) {
         String[] columns = {COL_2};
         List<Recipe> results = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();

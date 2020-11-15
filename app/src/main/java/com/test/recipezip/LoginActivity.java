@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient = null;
     private int RC_SIGN_IN = 0;
     private LoginButton loginButton;
+    private CallbackManager callbackManager;
 
     EditText mEmailText;
     EditText mPasswordText;
@@ -85,18 +86,22 @@ public class LoginActivity extends AppCompatActivity {
 
         // facebook login
         loginButton = findViewById(R.id.login_button);
-        CallbackManager callbackManager = CallbackManager.Factory.create();
+        callbackManager = CallbackManager.Factory.create();
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 String fbUserId = loginResult.getAccessToken().getUserId();
+                Log.d("facebook login", "success");
                 String email = fbUserId.concat("@fb.com");
+                Log.d("facebook login", "email "+ email);
                 Long uid = db.checkUserViaEmail(email);
+                Log.d("facebook login", "uid "+ uid.toString());
                 if (uid < 0) {
 //            Toast.makeText(LoginActivity.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
                     uid = db.addUser(fbUserId, email, "password");
                 }
+                Log.d("facebook login", "uid2 "+ uid.toString());
                 Intent switchToMain = new Intent(LoginActivity.this, MainActivity.class);
                 switchToMain.putExtra("uid", uid);
                 startActivity(switchToMain);
@@ -104,11 +109,13 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onCancel() {
+                Log.d("facebook login", "cancel ");
                 Toast.makeText(getApplicationContext(), "facebook sign in canceled", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(FacebookException error) {
+                Log.d("facebook login", "error ");
                 Toast.makeText(getApplicationContext(), "facebook sign in canceled", Toast.LENGTH_SHORT).show();
             }
         });
@@ -215,6 +222,8 @@ public class LoginActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
+
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
