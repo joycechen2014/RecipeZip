@@ -221,6 +221,7 @@ public class LoginActivity extends AppCompatActivity {
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
+            return;
         }
 
         callbackManager.onActivityResult(requestCode, resultCode, data);
