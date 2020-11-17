@@ -1,5 +1,6 @@
 package com.test.recipezip.ui.details;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,7 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.facebook.CallbackManager;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
+import com.facebook.share.widget.ShareDialog;
 import com.squareup.picasso.Picasso;
 import com.test.recipezip.R;
 import com.test.recipezip.databinding.FragmentDetailsBinding;
@@ -20,6 +26,9 @@ import com.test.recipezip.model.Recipe;
 
 public class DetailsFragment extends Fragment {
     private FragmentDetailsBinding binding;
+    Button shareButton;
+    CallbackManager callbackManager;
+    ShareDialog shareDialog;
 
     public DetailsFragment() {
         // Required empty public constructor
@@ -30,6 +39,8 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
 
     }
 
@@ -51,7 +62,19 @@ public class DetailsFragment extends Fragment {
         binding.detailsDescriptionTextView.setText(String.valueOf(recipe.calories));
         //binding.detailsContentTextView.setText(recipe.ingredients.toString());
         Picasso.get().load(recipe.image).into(binding.detailsImageView);
-
+        shareButton = binding.detailsShareButton;
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                        .setQuote("I found a good recipe on RecipeZip!")
+                        .setContentUrl(Uri.parse(recipe.url))
+                        .build();
+                if (ShareDialog.canShow(ShareLinkContent.class)) {
+                    shareDialog.show(linkContent);
+                }
+            }
+        });
         DetailIngredientAdapter newsAdapter = new DetailIngredientAdapter();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 1);
         binding.ingredientRecyclerView.setLayoutManager(gridLayoutManager);

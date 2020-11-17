@@ -13,7 +13,9 @@
         android:theme="@style/Theme.RecipeZip">
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
-
+        <provider android:authorities="com.facebook.app.FacebookContentProvider913968029137058"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true" />
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
