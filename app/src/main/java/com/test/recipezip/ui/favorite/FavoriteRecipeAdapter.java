@@ -95,6 +95,8 @@ public class FavoriteRecipeAdapter extends RecyclerView.Adapter<FavoriteRecipeAd
                 }
                 compoundButton.startAnimation(scaleAnimation);
             }});
+
+
     }
 
     @Override

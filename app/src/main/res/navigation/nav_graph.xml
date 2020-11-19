@@ -13,6 +13,7 @@
         <action
             android:id="@+id/action_navigation_search_to_navigation_details"
             app:destination="@id/navigation_details" />
+
     </fragment>
    <fragment
         android:id="@+id/navigation_favorite"
@@ -20,8 +21,11 @@
         android:label="@string/title_save"
         tools:layout="@layout/fragment_favorite" >
        <action
-           android:id="@+id/action_navigation_save_to_navigation_details"
+           android:id="@+id/action_navigation_favorite_to_navigation_details"
            app:destination="@id/navigation_details" />
+       <action
+           android:id="@+id/action_navigation_favorite_to_navigation_newrecipe"
+           app:destination="@id/navigation_newRecipe" />
    </fragment>
     <fragment
         android:id="@+id/navigation_details"
@@ -31,5 +35,14 @@
         <argument
             android:name="recipe"
             app:argType="com.test.recipezip.model.Recipe" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_newRecipe"
+        android:name="com.test.recipezip.ui.favorite.NewRecipeFragment"
+        android:label="@string/title_newrecipe"
+        tools:layout="@layout/fragment_new_recipe">
+        <argument android:name="uid"
+            app:argType="long"/>
     </fragment>
 </navigation>

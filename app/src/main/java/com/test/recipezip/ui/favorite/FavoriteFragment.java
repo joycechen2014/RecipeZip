@@ -7,7 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -16,7 +18,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.test.recipezip.FavoriteHelper;
+import com.test.recipezip.MainActivity;
 import com.test.recipezip.R;
 import com.test.recipezip.Repository.RecipeRepository;
 import com.test.recipezip.Repository.RecipeViewModelFactory;
@@ -77,10 +81,23 @@ public class FavoriteFragment extends Fragment {
         Log.d("showing favorite!!!!!!!!!!!!!!", recipeList.toString());
         recipeAdapter.setRecipes(recipeList);
         recipeAdapter.setItemCallback(article -> {
-            FavoriteFragmentDirections.ActionNavigationSaveToNavigationDetails direction = FavoriteFragmentDirections.actionNavigationSaveToNavigationDetails(article);
+            FavoriteFragmentDirections.ActionNavigationFavoriteToNavigationDetails direction = FavoriteFragmentDirections.actionNavigationFavoriteToNavigationDetails(article);
             NavHostFragment.findNavController(FavoriteFragment.this).navigate(direction);
         });
 //
+
+        FloatingActionButton fab = binding.fab;
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // get Action from genereted Directions class
+                 FavoriteFragmentDirections.ActionNavigationFavoriteToNavigationNewrecipe action = FavoriteFragmentDirections.actionNavigationFavoriteToNavigationNewrecipe(userId);
+                 //action
+
+              // FavoriteFragmentAction action = FavoriteFragmentDirections.actionNavigationSearchToNavigationNewrecipe();
+                Navigation.findNavController(view).navigate(action);
+            }
+        });
 //        RecipeRepository repository = new RecipeRepository(getContext());
 //        viewModel = new ViewModelProvider(this, new RecipeViewModelFactory(repository))
 //                .get(SearchViewModel.class);

@@ -8,11 +8,12 @@ import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.List;
 
 public class Recipe implements Serializable {
     public String uri;
     public String label;
-    public String image;
+    public String image ="https://www.edamam.com/web-img/ccf/ccffc8a98f443012071e4bb3f33bdf3e.jpg";
     public String source;
     public String url;
     public Integer yield;
@@ -63,6 +64,15 @@ public class Recipe implements Serializable {
         this.ingredients = recipe.ingredients;
     }
 
+    public Recipe(String label, List<Ingredient> ingredients,Float calories) {
+        this.label = label;
+        this.ingredients = new Ingredient[ingredients.size()];
+        for(int i = 0;i < ingredients.size();i++) {
+            this.ingredients[i] = ingredients.get(i);
+        }
+        this.calories = calories;
+
+    }
     public boolean isFavorite() {
         return favorite;
     }

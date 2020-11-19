@@ -11,8 +11,8 @@ public class Ingredient {
 //    public String foodCategory;
       public String text;
       public String weight;
-      public String image;
-
+      public String image ="https://www.edamam.com/web-img/ccf/ccffc8a98f443012071e4bb3f33bdf3e.jpg";
+      public String calories = "unknown";
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -35,5 +35,13 @@ public class Ingredient {
                 ", weight='" + weight + '\'' +
                 ", image='" + image + '\'' +
                 '}';
+    }
+
+    public Ingredient(String text, String weight, String calories) {
+        this.text = text;
+        this.weight = weight;
+        if(calories != null && calories.length() != 0) {
+            this.calories = calories;
+        }
     }
 }

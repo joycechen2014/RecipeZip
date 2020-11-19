@@ -26,6 +26,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/backgrounds/scenic"
+                android:background="@drawable/ic_baseline_collections_24"
                 android:adjustViewBounds="true"/>
 
 <!--            <ImageView-->
